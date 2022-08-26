@@ -32,7 +32,7 @@ public class FolderActivity extends AppCompatActivity {
         imghistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FolderActivity.this, AfterLauncherActivity.class);
+                Intent intent = new Intent(FolderActivity.this, AfterLauncherActivity2.class);
                 startActivity(intent);
             }
         });

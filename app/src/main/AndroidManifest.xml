@@ -37,6 +37,9 @@
         android:theme="@style/Theme.ArApplication"
         tools:targetApi="31">
         <activity
+            android:name=".AfterLauncherActivity2"
+            android:exported="false" />
+        <activity
             android:name=".QuizActivity"
             android:exported="false" />
         <activity
@@ -61,13 +64,7 @@
 
         <activity
             android:name=".ScannerActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ModelActivity"
             android:exported="false" />
@@ -83,7 +80,17 @@
         <activity
             android:name=".LauncherActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".CaptureCode"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme" />
 
         <meta-data
             android:name="com.google.ar.core"

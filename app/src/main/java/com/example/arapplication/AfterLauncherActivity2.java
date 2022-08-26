@@ -1,5 +1,4 @@
 package com.example.arapplication;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +34,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class AfterLauncherActivity extends AppCompatActivity {
+public class AfterLauncherActivity2 extends AppCompatActivity {
 
     Toolbar toolbar;
     ListView listView;
@@ -56,26 +55,26 @@ public class AfterLauncherActivity extends AppCompatActivity {
     RelativeLayout relative1, relative2, relative3, relative4, relative5, relative6, relative7, relative8, relative9, relative10;
 
     String[] filterarray ={"Sanchi Stupa","Taj Mahal","Sun Temple","India Gate","Qutub Minar","Gateway of India","Mysore Palace",
-    "Red Fort","Jama Masjid","Moti Masjid","Victoria Memorial"};
+            "Red Fort","Jama Masjid","Moti Masjid","Victoria Memorial"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_after_launcher);
+        setContentView(R.layout.activity_after_launcher2);
 
         listView= findViewById(R.id.listView);
 
-    //    progressDialog = new ProgressDialog(this);
-      //  progressDialog.setCancelable(false);
+        //    progressDialog = new ProgressDialog(this);
+        //  progressDialog.setCancelable(false);
         // progressDialog.setMessage("Loading List");
         //progressDialog.show();
         toolbar = findViewById(R.id.toolbar);
 
         //setSupportActionBar(toolbar);
 
-       // recyclerView= findViewById(R.id.recyclerview);
+        // recyclerView= findViewById(R.id.recyclerview);
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.setHasFixedSize(true);
-       // db = FirebaseFirestore.getInstance();
+        // db = FirebaseFirestore.getInstance();
         //frameLayout = findViewById(R.id.framelayout);
         //modelFirebaseClassArrayList = new ArrayList<ModelFirebase>();
         if(toolbar!=null)
@@ -117,91 +116,91 @@ public class AfterLauncherActivity extends AppCompatActivity {
         relative1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "sunTemple");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Sun Temple", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Sun Temple", Toast.LENGTH_SHORT).show();
             }
         });
         relative2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name","Gol_Gumbaz");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Gol Gumbaz", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Gol Gumbaz", Toast.LENGTH_SHORT).show();
             }
         });
         relative3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "India_Gate");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "India Gate", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "India Gate", Toast.LENGTH_SHORT).show();
             }
         });
         relative4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "Qutub_Minar");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Qutub Minar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Qutub Minar", Toast.LENGTH_SHORT).show();
             }
         });
         relative5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "Gateway_Of_India");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Gateway of India", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Gateway of India", Toast.LENGTH_SHORT).show();
             }
         });
         relative6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "Mysore_Palace");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Mysore Palace", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Mysore Palace", Toast.LENGTH_SHORT).show();
             }
         });
         relative7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "Moti_Masjid");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Moti Masjid", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Moti Masjid", Toast.LENGTH_SHORT).show();
             }
         });
         relative8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "Jama_Masjid");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Jama Masjid", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Jama Masjid", Toast.LENGTH_SHORT).show();
             }
         });
         relative9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "Sanchi_Stupa");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Sanchi Stupa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Sanchi Stupa", Toast.LENGTH_SHORT).show();
             }
         });
         relative10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 intent.putExtra("model_name", "Victoria_memorial");
                 startActivity(intent);
-                Toast.makeText(AfterLauncherActivity.this, "Victoria Memorial", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AfterLauncherActivity2.this, "Victoria Memorial", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -280,7 +279,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String s) {
                 return false;
             }
-//
+            //
             @Override
             public boolean onQueryTextChange(String s) {
                 arrayAdapter.getFilter().filter(s);
@@ -292,7 +291,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
         scanimage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent(AfterLauncherActivity.this,ScannerActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this,ScannerActivity.class);
                 startActivity(intent);
                 return true;
             }
@@ -325,11 +324,11 @@ public class AfterLauncherActivity extends AppCompatActivity {
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             String voice = results.get(0);
-           // Toast.makeText(this, voice, Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, voice, Toast.LENGTH_SHORT).show();
         } //else {
-            //Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-            super.onActivityResult(requestCode, resultCode,data);
-        }
+        //Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+        super.onActivityResult(requestCode, resultCode,data);
+    }
 
 /*        public void Filter() {
         filterList = new ArrayList<>();
