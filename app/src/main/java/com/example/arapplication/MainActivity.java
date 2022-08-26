@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements
     String eng = "data";
     String hin = "hindata";
     int var;
+    ProgressDialog progressDialog;
 
     String modelname;
     String text;
@@ -103,8 +105,14 @@ public class MainActivity extends AppCompatActivity implements
         findViewById(R.id.button).setOnClickListener(v->{
 
                     try {
+
+                            progressDialog = new ProgressDialog(this);
+                          progressDialog.setCancelable(false);
+                         progressDialog.setMessage("WAIT!! Your model is loading");
+                        progressDialog.show();
                         File file= File.createTempFile(modelname,"glb");
                         modelRef.getFile(file).addOnSuccessListener(taskSnapshot -> buildModel(file));
+
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -173,10 +181,14 @@ public class MainActivity extends AppCompatActivity implements
                 .setRegistryId(file.getPath())
                 .build()
                 .thenAccept(modelRenderable -> {
-                    Toast.makeText(this,"ModelFirebase built",Toast.LENGTH_SHORT ).show();
+                    if(progressDialog.isShowing())
+                        progressDialog.dismiss();
+                    Toast.makeText(this,"Model built",Toast.LENGTH_SHORT ).show();
                     renderable = modelRenderable;
                 })
                 .exceptionally(throwable -> {
+                    if(progressDialog.isShowing())
+                        progressDialog.dismiss();
                     Toast.makeText(this, "Unable to load model", Toast.LENGTH_LONG).show();
                     return null;
                 });

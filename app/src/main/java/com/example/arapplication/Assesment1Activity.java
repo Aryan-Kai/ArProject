@@ -31,7 +31,7 @@ public class Assesment1Activity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assesment2);
+        setContentView(R.layout.activity_assesment1);
 
         questionimage = findViewById(R.id.questionimage);
         totalQuestionsTextView = findViewById(R.id.total_question);
@@ -95,7 +95,8 @@ public class Assesment1Activity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-        questionimage.setImageResource(Question1Answer.array[currentQuestionIndex]);
+        int id = Question1Answer.array[currentQuestionIndex];
+        questionimage.setImageResource(id);
         questionTextView.setText(Question1Answer.question[currentQuestionIndex]);
         ansA.setText(Question1Answer.choices[currentQuestionIndex][0]);
         ansB.setText(Question1Answer.choices[currentQuestionIndex][1]);

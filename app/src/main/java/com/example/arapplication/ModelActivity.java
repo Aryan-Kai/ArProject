@@ -46,8 +46,6 @@ public class ModelActivity extends AppCompatActivity {
     static final String TAG="read data ";
 
     TextView txtdata;
-    Button launch;
-    Button fab;
     String modelname;
 
     public FloatingActionButton floatingActionButton,fab2;
@@ -57,6 +55,8 @@ public class ModelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
 
+        Intent intent = getIntent();
+        modelname = intent.getStringExtra("model_name").toString();
         imageView = findViewById(R.id.circularimage);
         txtdata = findViewById(R.id.txtsetdata);
         /*FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -77,6 +77,16 @@ public class ModelActivity extends AppCompatActivity {
         });*/
 
 
+        floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ModelActivity.this, MainActivity.class);
+                intent.putExtra("model_name",modelname);
+                startActivity(intent);
+                //Toast.makeText(ModelActivity.this,"Quiz Started",Toast.LENGTH_SHORT).show();
+            }
+        });
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading");
@@ -99,8 +109,7 @@ public class ModelActivity extends AppCompatActivity {
         });
 
 
-        Intent intent = getIntent();
-        modelname = intent.getStringExtra("model_name").toString();
+
         ModelEventListener();
 
         //recyclerView.setAdapter(dataAdapter);
@@ -153,15 +162,16 @@ public class ModelActivity extends AppCompatActivity {
                         }
                     }
                 });
-        FirebaseApp.initializeApp(this);
+        /*FirebaseApp.initializeApp(this);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference modelRef=storage.getReference().child(modelname+".glb");
 
 
-        ArFragment arFragment= (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arFragment);
-        floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(v->{
+        ArFragment arFragment= (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arFragment);*/
+
+
+      /*  floatingActionButton.setOnClickListener(v->{
 
             try {
                 File file= File.createTempFile(modelname,"glb");
@@ -171,7 +181,7 @@ public class ModelActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-        });
+        });*/
 
         /*if (arFragment != null) {
             arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
@@ -196,10 +206,10 @@ public class ModelActivity extends AppCompatActivity {
         }*/
     }
 
-    private ModelRenderable renderable ;
-    private void buildModel(File file) {
+    //private ModelRenderable renderable ;
+  //  private void buildModel(File file) {
 
-        RenderableSource renderableSource = RenderableSource
+       /* RenderableSource renderableSource = RenderableSource
                 .builder()
                 .setSource(this, Uri.parse(file.getPath()),RenderableSource.SourceType.GLB)
                 .setRecenterMode(RenderableSource.RecenterMode.ROOT)
@@ -231,6 +241,6 @@ public class ModelActivity extends AppCompatActivity {
                 });
 
 
-    }
+    }*/
 
 }
