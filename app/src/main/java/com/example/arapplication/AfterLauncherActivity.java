@@ -323,27 +323,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(AfterLauncherActivity.this);
-        builder.setMessage("Do you want to close the app");
-        builder.setTitle("Alert!");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.show();
-    }
+
 
     private static final int SPEECH_REQUEST_CODE=0;
 

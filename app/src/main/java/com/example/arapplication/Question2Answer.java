@@ -1,6 +1,6 @@
 package com.example.arapplication;
 
-public class QuestionAnswer {
+public class Question2Answer {
 
     public static String question[] ={
             "In which village of Mehsana city (Gujarat) is the sun temple present?",

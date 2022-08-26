@@ -38,7 +38,7 @@ public class LauncherActivity extends AppCompatActivity {
         timer = new Timer();
         txt_bottom.startAnimation(bottom_anim);
         txt_bo.startAnimation(bottom_anim);
-        Intent intent = new Intent(LauncherActivity.this,AfterLauncherActivity.class);
+        Intent intent = new Intent(LauncherActivity.this,FolderActivity.class);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

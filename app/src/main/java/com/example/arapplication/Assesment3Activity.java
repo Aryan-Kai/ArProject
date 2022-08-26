@@ -7,17 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AssesmentActivity extends AppCompatActivity implements View.OnClickListener{
+public class Assesment3Activity extends AppCompatActivity implements View.OnClickListener{
 
     TextView totalQuestionsTextView;
     TextView questionTextView;
@@ -25,14 +23,14 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
     Button submitBtn;
 
     int score=0;
-    int totalQuestion = QuestionAnswer.question.length;
+    int totalQuestion = Question2Answer.question.length;
     int currentQuestionIndex = 0;
     String selectedAnswer = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assesment);
+        setContentView(R.layout.activity_assesment2);
 
         totalQuestionsTextView = findViewById(R.id.total_question);
         questionTextView = findViewById(R.id.question);
@@ -42,11 +40,11 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
         ansD = findViewById(R.id.ans_D);
         submitBtn = findViewById(R.id.submit_btn);
 
-        ansA.setOnClickListener(AssesmentActivity.this);
-        ansB.setOnClickListener(AssesmentActivity.this);
-        ansC.setOnClickListener(AssesmentActivity.this);
-        ansD.setOnClickListener(AssesmentActivity.this);
-        submitBtn.setOnClickListener(AssesmentActivity.this);
+        ansA.setOnClickListener(Assesment3Activity.this);
+        ansB.setOnClickListener(Assesment3Activity.this);
+        ansC.setOnClickListener(Assesment3Activity.this);
+        ansD.setOnClickListener(Assesment3Activity.this);
+        submitBtn.setOnClickListener(Assesment3Activity.this);
 
         totalQuestionsTextView.setText("Total questions : "+totalQuestion);
 
@@ -67,12 +65,12 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
 
         Button clickedButton = (Button) view;
         if(clickedButton.getId()==R.id.submit_btn){
-            if(selectedAnswer.equals(QuestionAnswer.correctAnswers[currentQuestionIndex])){
+            if(selectedAnswer.equals(Question3Answer.correctAnswers[currentQuestionIndex])){
                 score++;
-                Toast.makeText(AssesmentActivity.this,"Correct Answer!!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Assesment3Activity.this,"Correct Answer!!!",Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(AssesmentActivity.this,"OOPS!! You can do it!!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Assesment3Activity.this,"OOPS!! You can do it!!!",Toast.LENGTH_SHORT).show();
 
             }
             currentQuestionIndex++;
@@ -95,11 +93,11 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
             return;
         }
 
-        questionTextView.setText(QuestionAnswer.question[currentQuestionIndex]);
-        ansA.setText(QuestionAnswer.choices[currentQuestionIndex][0]);
-        ansB.setText(QuestionAnswer.choices[currentQuestionIndex][1]);
-        ansC.setText(QuestionAnswer.choices[currentQuestionIndex][2]);
-        ansD.setText(QuestionAnswer.choices[currentQuestionIndex][3]);
+        questionTextView.setText(Question3Answer.question[currentQuestionIndex]);
+        ansA.setText(Question3Answer.choices[currentQuestionIndex][0]);
+        ansB.setText(Question3Answer.choices[currentQuestionIndex][1]);
+        ansC.setText(Question3Answer.choices[currentQuestionIndex][2]);
+        ansD.setText(Question3Answer.choices[currentQuestionIndex][3]);
 
     }
 
@@ -107,7 +105,7 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
         String passStatus = "";
         if(score > totalQuestion*0.60){
             passStatus = "Passed";
-            //Intent intent = new Intent(AssesmentActivity.this,BravoActivity.class);
+            //Intent intent = new Intent(Assesment2Activity.this,BravoActivity.class);
             //startActivity(intent);
         }else{
             passStatus = "Failed";
@@ -128,7 +126,7 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
         builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(AssesmentActivity.this,ModelActivity.class);
+                Intent intent = new Intent(Assesment3Activity.this,ModelActivity.class);
                 startActivity(intent);
                 finish();
                 dialogInterface.dismiss();
