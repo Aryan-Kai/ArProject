@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content">
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
+                android:background="@drawable/toolbarbg"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"/>
             </com.google.android.material.appbar.AppBarLayout>
@@ -35,7 +36,7 @@
                 android:id="@+id/gridlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/bgcolor"
+                android:background="@drawable/backg"
                 android:columnCount="2"
                 android:rowCount="7">
 

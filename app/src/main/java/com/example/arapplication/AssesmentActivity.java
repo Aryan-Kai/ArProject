@@ -1,4 +1,5 @@
 package com.example.arapplication;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
@@ -71,7 +72,7 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(AssesmentActivity.this,"Correct Answer!!!",Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(AssesmentActivity.this,"Incorrect Answer!!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AssesmentActivity.this,"OOPS!! You can do it!!!",Toast.LENGTH_SHORT).show();
 
             }
             currentQuestionIndex++;
@@ -127,8 +128,8 @@ public class AssesmentActivity extends AppCompatActivity implements View.OnClick
         builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //Intent intent = new Intent(AssesmentActivity.this,ModelActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(AssesmentActivity.this,ModelActivity.class);
+                startActivity(intent);
                 finish();
                 dialogInterface.dismiss();
             }

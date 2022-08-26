@@ -29,9 +29,9 @@
             android:id="@+id/txtsetdata"
             android:layout_width="match_parent"
             android:layout_height="377dp"
-            android:textAlignment="center"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
+            android:textAlignment="center"
             android:textSize="20sp" />
     </RelativeLayout>
 
@@ -45,7 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="end|bottom"
         android:contentDescription="@string/download"
-        android:src="@drawable/ic_baseline_arrow_circle_down_24"
+        android:src="@drawable/arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.928"
@@ -62,7 +62,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="end|bottom"
         android:contentDescription="@string/download"
-        android:src="@drawable/quiz"
+        android:src="@drawable/quizimg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"
