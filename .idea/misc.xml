@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ArApp2/app/src/main/res/layout/activity_activity2.xml" value="0.15677083333333333" />
+        <entry key="..\:/ArApp2/app/src/main/res/layout/activity_after_launcher.xml" value="0.15677083333333333" />
+        <entry key="..\:/ArApp2/app/src/main/res/layout/activity_assesment1.xml" value="0.15677083333333333" />
+        <entry key="..\:/ArApp2/app/src/main/res/layout/activity_assesment2.xml" value="0.15677083333333333" />
+        <entry key="..\:/ArApp2/app/src/main/res/layout/activity_launcher.xml" value="0.15677083333333333" />
+        <entry key="..\:/ArApp2/app/src/main/res/layout/activity_main.xml" value="0.15677083333333333" />
+        <entry key="..\:/ArApp2/app/src/main/res/layout/activity_model.xml" value="0.1" />
         <entry key="..\:/ArApp2/app/src/main/res/layout/activity_quiz.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/ABHISHEK/AndroidStudioProjects/ArApp/ArDevelopment/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1355" />
         <entry key="..\:/Users/ABHISHEK/AndroidStudioProjects/ArApp/ArDevelopment/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1355" />
@@ -39,6 +46,7 @@
         <entry key="..\:/Users/ABHISHEK/AndroidStudioProjects/ArApplication2/app/src/main/res/layout/item.xml" value="0.28541666666666665" />
         <entry key="..\:/Users/ABHISHEK/AndroidStudioProjects/ArApplication2/app/src/main/res/layout/style.xml" value="0.1068840579710145" />
         <entry key="..\:/Users/ABHISHEK/AndroidStudioProjects/ArApplication2/app/src/main/res/menu/menu.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/ABHISHEK/ArApp2/app/src/main/res/layout/fragment_about.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/SATYAM/sih25/ArDevelopment/app/src/main/res/drawable/quiz.xml" value="0.1" />
         <entry key="..\:/Users/SATYAM/sih25/ArDevelopment/app/src/main/res/layout/activity_activity2.xml" value="0.1" />
         <entry key="..\:/Users/SATYAM/sih25/ArDevelopment/app/src/main/res/layout/activity_after_launcher.xml" value="0.10208333333333333" />
@@ -61,17 +69,12 @@
         <entry key="..\:/Users/aryan/AndroidStudioProjects/ArApp2/app/src/main/res/layout/activity_model.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/aryan/AndroidStudioProjects/ArApp2/app/src/main/res/layout/activity_quiz.xml" value="0.13958333333333334" />
         <entry key="..\:/Users/aryan/Downloads/New folder/ArApp2/app/src/main/res/layout/activity_after_launcher.xml" value="0.1" />
-        <entry key="..\:/Users/aryan/Downloads/New folder/ArApp2/app/src/main/res/layout/activity_after_launcher2.xml" value="0.15833333333333333" />
-        <entry key="..\:/Users/aryan/Downloads/New folder/ArApp2/app/src/main/res/layout/activity_assesment1.xml" value="0.15833333333333333" />
-        <entry key="..\:/Users/aryan/Downloads/New folder/ArApp2/app/src/main/res/layout/activity_assesment2.xml" value="0.15833333333333333" />
-        <entry key="..\:/Users/aryan/Downloads/New folder/ArApp2/app/src/main/res/layout/activity_model.xml" value="0.128125" />
         <entry key="..\:/Users/aryan/Downloads/New folder/ArApp2/app/src/main/res/layout/activity_scanner.xml" value="0.11302083333333333" />
-        <entry key="..\:/Users/aryan/Downloads/New folder/ArApp2/app/src/main/res/layout/item.xml" value="0.128125" />
         <entry key="..\:/sih25/ArDevelopment/app/src/main/res/layout/activity_after_launcher.xml" value="0.11302083333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
