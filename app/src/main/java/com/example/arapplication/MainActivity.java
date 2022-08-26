@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements
                 .setRegistryId(file.getPath())
                 .build()
                 .thenAccept(modelRenderable -> {
-                    Toast.makeText(this,"Model built",Toast.LENGTH_SHORT ).show();
+                    Toast.makeText(this,"ModelFirebase built",Toast.LENGTH_SHORT ).show();
                     renderable = modelRenderable;
                 })
                 .exceptionally(throwable -> {

@@ -1,6 +1,6 @@
 package com.example.arapplication;
 
-public class Model {
+public class ModelFirebase {
     public String getUrl() {
         return url;
     }
@@ -31,5 +31,5 @@ public class Model {
 
     String data;
 
-    public Model(){}
+    public ModelFirebase(){}
 }

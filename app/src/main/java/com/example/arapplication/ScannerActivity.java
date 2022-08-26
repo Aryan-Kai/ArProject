@@ -1,179 +1,181 @@
 package com.example.arapplication;
 
-import androidx.annotation.NonNull;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleOwner;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Size;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
-import org.pytorch.IValue;
-import org.pytorch.Module;
-import org.pytorch.Tensor;
-import org.pytorch.torchvision.TensorImageUtils;
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 
 public class ScannerActivity extends AppCompatActivity {
 
-    private ListenableFuture<ProcessCameraProvider> cameraProviderListenableFuture;
-
-    PreviewView previewView;
-    TextView textView;
-
-    private int REQUEST_CODE_PERMISSION = 101;
-    private final String[] REQUIRED_PERMISSIONS = new String[] {"android.permission.CAMERA"};
-    List<String> imagenet_classes;
-
-
+    TextView result, confidence;
+    ImageView imageView;
+    Button picture;
+    String contents;
+    int imageSize = 224;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
 
-        previewView = findViewById(R.id.cameraView);
-        textView = findViewById(R.id.result_text);
+      /*  result = findViewById(R.id.result);
+        confidence = findViewById(R.id.confidence);
+        imageView = findViewById(R.id.imageView);
+        picture = findViewById(R.id.button);
 
-        if(!checkPermissions()){
-            ActivityCompat.requestPermissions(this,REQUIRED_PERMISSIONS,REQUEST_CODE_PERMISSION);
-        };
-
-        imagenet_classes = LoadClasses("imagenet-classes.txt");
-        loadtorchModel("model.ptl");
-
-        cameraProviderListenableFuture = ProcessCameraProvider.getInstance(ScannerActivity.this);
-        cameraProviderListenableFuture.addListener(() -> {
-            try {
-                ProcessCameraProvider cameraProvider = cameraProviderListenableFuture.get();
-                startCamera(cameraProvider);
-
-            }catch (ExecutionException | InterruptedException e){
-            //errors
-            }
-        },ContextCompat.getMainExecutor(ScannerActivity.this));
-    }
-
-    private boolean checkPermissions()
-    {
-        for(String permission: REQUIRED_PERMISSIONS){
-            if(ContextCompat.checkSelfPermission(this,permission) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    Executor executor = Executors.newSingleThreadExecutor();
-    void startCamera(@NonNull ProcessCameraProvider cameraProvider){
-        Preview preview = new Preview.Builder().build();
-        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
-        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-
-        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder().setTargetResolution(new Size(224,224))
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .build();
-
-        imageAnalysis.setAnalyzer(executor, new ImageAnalysis.Analyzer() {
+        picture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void analyze(@NonNull ImageProxy image) {
-                int rotation = image.getImageInfo().getRotationDegrees();
-                analyzeImage(image,rotation);
-                image.close();
-            }
-        });
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this,cameraSelector,preview);
-    }
-
-
-    void loadtorchModel(String fileName){
-        File modelFile = new File(this.getFilesDir(),fileName);
-        try{
-            if(!modelFile.exists()){
-                InputStream inputStream = getAssets().open(fileName);
-                FileOutputStream fileOutputStream = new FileOutputStream(modelFile);
-                byte[] buffer = new byte[2048];
-                int bytesRead = -1;
-                while((bytesRead = inputStream.read(buffer)) !=-1){
-                    fileOutputStream.write(buffer,0,bytesRead);
+            public void onClick(View view) {
+                // Launch camera if we have permission
+                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, 1);
+                } else {
+                    //Request camera permission if we don't have it.
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
                 }
-                inputStream.close();
-                fileOutputStream.close();
             }
-        }catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        });*/
+
+        scanqrcode();
     }
 
-    Module module;
-    void analyzeImage(ImageProxy image,int rotation){
-        @SuppressLint("UnsafeOptInUsageError") Tensor inputTensor = TensorImageUtils.imageYUV420CenterCropToFloat32Tensor(Objects.requireNonNull(image.getImage()),rotation,224,224,
-                TensorImageUtils.TORCHVISION_NORM_MEAN_RGB,TensorImageUtils.TORCHVISION_NORM_STD_RGB);
+    private void scanqrcode() {
+        ScanOptions scanOptions = new ScanOptions();
+        scanOptions.setPrompt("Volume up to Flash On");
+        scanOptions.setBeepEnabled(true);
+        scanOptions.setCaptureActivity(CaptureCode.class);
+        barcodelauncher.launch(scanOptions);
 
-        Tensor outputTensor = module.forward(IValue.from(inputTensor)).toTensor();
-        float[] scores = outputTensor.getDataAsFloatArray();
-        float maxscores = -Float.MAX_VALUE;
-        int maxscoreIdx = -1;
-        for(int i=0;i<scores.length;i++)
-        {
-            if(scores[i]>maxscores){
-                maxscores = scores[i];
-                maxscoreIdx = i;
-            }
-        }
-        String classResult = imagenet_classes.get(maxscoreIdx);
-        Log.v("Torch","Detected:"+classResult);
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textView.setText(classResult);
-                // Toast.makeText(ScannerActivity.this,classResult,Toast.LENGTH_SHORT).show();
-            }
-        });
     }
+    ActivityResultLauncher<ScanOptions> barcodelauncher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents()!=null)
+        {
+            contents = result.getContents();
+            AlertDialog.Builder builder = new AlertDialog.Builder(ScannerActivity.this);
+            builder.setTitle("Information Obtained");
+            builder.setMessage(result.getContents());
+            builder.setPositiveButton("Load Model", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent  = new Intent(ScannerActivity.this,ModelActivity.class);
+                    intent.putExtra("model_name",contents);
+                    startActivity(intent);
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+        }
+        else
+        {
+            System.out.println("No contents");
+        }
+    });
 
-    List<String> LoadClasses(String fileName){
-        List<String> classes = new ArrayList<>();
-        try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(getAssets().open(fileName)));
-            String line;
-            while((line = br.readLine())!=null)
+    /*public void classifyImage(Bitmap image){
+        try {
+            com.example.arapplication.ml.Model model = com.example.arapplication.ml.Model.newInstance(this);
+
+            // Creates inputs for reference.
+            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3);
+            if(byteBuffer.hasArray())
             {
-                classes.add(line);
+                Buffer buffer = new Buffer()
             }
-        }catch (IOException e)
-        {
-            e.printStackTrace();
+            byteBuffer.order(ByteOrder.nativeOrder());
+
+            // get 1D array of 224 * 224 pixels in image
+            int [] intValues = new int[imageSize * imageSize];
+            image.getPixels(intValues, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight());
+
+            // iterate over pixels and extract R, G, and B values. Add to bytebuffer.
+            int pixel = 0;
+            for(int i = 0; i < imageSize; i++){
+                for(int j = 0; j < imageSize; j++){
+                    int val = intValues[pixel++]; // RGB
+                    byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
+                    byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
+                    byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
+                }
+            }
+
+            inputFeature0.loadBuffer(byteBuffer);
+
+            // Runs model inference and gets result.
+            com.example.arapplication.ml.Model.Outputs outputs = model.process(inputFeature0);
+            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+            float[] confidences = outputFeature0.getFloatArray();
+            // find the index of the class with the biggest confidence.
+            int maxPos = 0;
+            float maxConfidence = 0;
+            for(int i = 0; i < confidences.length; i++){
+                if(confidences[i] > maxConfidence){
+                    maxConfidence = confidences[i];
+                    maxPos = i;
+                }
+            }
+            String[] classes = {"Akbar Sikandra", "Orange", "Pen", "Sticky Notes","Victoria Memorial"};
+            result.setText(classes[maxPos]);
+
+            String s = "";
+            for(int i = 0; i < classes.length; i++){
+                s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100);
+            }
+            confidence.setText(s);
+
+
+            // Releases model resources if no longer used.
+            model.close();
+        } catch (IOException e) {
+            // TODO Handle the exception
+        }*/
+
+
+/*    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bitmap image = (Bitmap) data.getExtras().get("data");
+            int dimension = Math.min(image.getWidth(), image.getHeight());
+            image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
+            imageView.setImageBitmap(image);
+
+            image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
+            classifyImage(image);
         }
-        return classes;
-    }
+        super.onActivityResult(requestCode, resultCode, data);
+    }*/
 }

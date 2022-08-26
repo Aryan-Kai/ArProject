@@ -1,34 +1,23 @@
 package com.example.arapplication;
 
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -36,10 +25,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -62,7 +49,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
     ModelAdapter modelAdapter;
     MenuItem scanimage;
     ProgressDialog progressDialog;
-    ArrayList<Model> modelClassArrayList;
+    ArrayList<ModelFirebase> modelFirebaseClassArrayList;
     ArrayAdapter<String> arrayAdapter;
     RecyclerView recyclerView;
     FirebaseFirestore db;
@@ -90,16 +77,16 @@ public class AfterLauncherActivity extends AppCompatActivity {
         //recyclerView.setHasFixedSize(true);
        // db = FirebaseFirestore.getInstance();
         //frameLayout = findViewById(R.id.framelayout);
-        //modelClassArrayList = new ArrayList<Model>();
+        //modelFirebaseClassArrayList = new ArrayList<ModelFirebase>();
         if(toolbar!=null)
         {
             setSupportActionBar(toolbar);
         }
 
         /*EventChangeListener();
-        modelAdapter = new ModelAdapter(AfterLauncherActivity.this, modelClassArrayList, new ModelAdapter.ItemClickListener() {
+        modelAdapter = new ModelAdapter(AfterLauncherActivity.this, modelFirebaseClassArrayList, new ModelAdapter.ItemClickListener() {
             @Override
-            public void OnItemClick(Model model) {
+            public void OnItemClick(ModelFirebase model) {
                 Intent intent = new Intent(AfterLauncherActivity.this, ModelActivity.class);
                 String name = model.getModel_name().toString();
                 intent.putExtra("model_name",name);
@@ -259,7 +246,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
                 }
                 for (DocumentChange dc : value.getDocumentChanges()) {
                     if (dc.getType() == DocumentChange.Type.ADDED) {
-                        modelClassArrayList.add(dc.getDocument().toObject(Model.class));
+                        modelFirebaseClassArrayList.add(dc.getDocument().toObject(ModelFirebase.class));
                     }
                     modelAdapter.notifyDataSetChanged();
                     if (progressDialog.isShowing())
@@ -301,15 +288,15 @@ public class AfterLauncherActivity extends AppCompatActivity {
             }
         });
 
-//        scanimage = menu.findItem(R.id.scanimage);
-//        scanimage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                Intent intent = new Intent(AfterLauncherActivity.this,ScannerActivity.class);
-//                startActivity(intent);
-//                return true;
-//            }
-//        });
+        scanimage = menu.findItem(R.id.scanimage);
+        scanimage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(AfterLauncherActivity.this,ScannerActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
         return true;
     }
 
@@ -346,7 +333,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
 
 /*        public void Filter() {
         filterList = new ArrayList<>();
-        for(Model items: modelClassArrayList)
+        for(ModelFirebase items: modelFirebaseClassArrayList)
         {
             if(items.getModel_name()!=null)
             {

@@ -1,7 +1,6 @@
 package com.example.arapplication;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.time.Instant;
 import java.util.ArrayList;
 
 public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> {
 
     String urlimage;
     Context context;
-    ArrayList<Model> modelArrayList;
+    ArrayList<ModelFirebase> modelFirebaseArrayList;
     ItemClickListener itemClickListener;
 
-    public ModelAdapter(Context context,ArrayList<Model> modelArrayList,ItemClickListener itemClickListener)
+    public ModelAdapter(Context context, ArrayList<ModelFirebase> modelFirebaseArrayList, ItemClickListener itemClickListener)
     {
         this.context = context;
-        this.modelArrayList = modelArrayList;
+        this.modelFirebaseArrayList = modelFirebaseArrayList;
         this.itemClickListener = itemClickListener;
     }
     @NonNull
@@ -38,23 +36,23 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ModelAdapter.ViewHolder holder, int position) {
-        Model model = modelArrayList.get(position);
-        urlimage =  model.url;
-        holder.modelname.setText(model.model_name);
+        ModelFirebase modelFirebase = modelFirebaseArrayList.get(position);
+        urlimage =  modelFirebase.url;
+        holder.modelname.setText(modelFirebase.model_name);
         holder.itemView.setOnClickListener(view -> {
-            itemClickListener.OnItemClick(modelArrayList.get(position));
+            itemClickListener.OnItemClick(modelFirebaseArrayList.get(position));
         });
         Picasso.with(context).load(urlimage).into(holder.imgmodel);
     }
 
     @Override
     public int getItemCount() {
-        return modelArrayList.size();
+        return modelFirebaseArrayList.size();
     }
 
     public interface ItemClickListener
     {
-        void OnItemClick(Model model);
+        void OnItemClick(ModelFirebase modelFirebase);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

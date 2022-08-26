@@ -86,8 +86,8 @@ public class ModelActivity extends AppCompatActivity {
         //recyclerView.setHasFixedSize(true);
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         fb = FirebaseFirestore.getInstance();
-        //modelArrayList = new ArrayList<ModelData>();
-        //dataAdapter = new DataAdapter(this, modelArrayList);
+        //modelFirebaseArrayList = new ArrayList<ModelData>();
+        //dataAdapter = new DataAdapter(this, modelFirebaseArrayList);
         fab2 = findViewById(R.id.fab2);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,7 +211,7 @@ public class ModelActivity extends AppCompatActivity {
                 .setRegistryId(file.getPath())
                 .build()
                 .thenAccept(modelRenderable -> {
-                    Toast.makeText(this,"Model built", Toast.LENGTH_SHORT ).show();
+                    Toast.makeText(this,"ModelFirebase built", Toast.LENGTH_SHORT ).show();
                     renderable = modelRenderable;
                     Intent intent = getIntent();
                     String modelName = intent.getStringExtra("model_name").toString();
