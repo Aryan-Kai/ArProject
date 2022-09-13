@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentChange;
@@ -64,26 +65,26 @@ public class AfterLauncherActivity extends AppCompatActivity {
 
         listView= findViewById(R.id.listView);
 
-    //    progressDialog = new ProgressDialog(this);
-      //  progressDialog.setCancelable(false);
-        // progressDialog.setMessage("Loading List");
-        //progressDialog.show();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+         progressDialog.setMessage("Loading Monuments");
+        progressDialog.show();
         toolbar = findViewById(R.id.toolbar);
 
         //setSupportActionBar(toolbar);
 
-       // recyclerView= findViewById(R.id.recyclerview);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setHasFixedSize(true);
-       // db = FirebaseFirestore.getInstance();
-        //frameLayout = findViewById(R.id.framelayout);
-        //modelFirebaseClassArrayList = new ArrayList<ModelFirebase>();
+        recyclerView= findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        db = FirebaseFirestore.getInstance();
+        frameLayout = findViewById(R.id.framelayout);
+        modelFirebaseClassArrayList = new ArrayList<ModelFirebase>();
         if(toolbar!=null)
         {
             setSupportActionBar(toolbar);
         }
 
-        /*EventChangeListener();
+        EventChangeListener();
         modelAdapter = new ModelAdapter(AfterLauncherActivity.this, modelFirebaseClassArrayList, new ModelAdapter.ItemClickListener() {
             @Override
             public void OnItemClick(ModelFirebase model) {
@@ -95,22 +96,22 @@ public class AfterLauncherActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(modelAdapter);
-        Filter();
+        /*Filter();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,filterList);
         listView.setAdapter(adapter);*/
-        relative1 = findViewById(R.id.relative1);
-        relative2 = findViewById(R.id.relative2);
-        relative3 = findViewById(R.id.relative3);
-        relative4 = findViewById(R.id.relative4);
-        relative5 = findViewById(R.id.relative5);
-        relative6 = findViewById(R.id.relative6);
-        relative7 = findViewById(R.id.relative7);
-        relative8 = findViewById(R.id.relative8);
-        relative9 = findViewById(R.id.relative9);
-        relative10 = findViewById(R.id.relative10);
-        initclicklistners();
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,filterarray);
-        listView.setAdapter(arrayAdapter);
+//        relative1 = findViewById(R.id.relative1);
+//        relative2 = findViewById(R.id.relative2);
+//        relative3 = findViewById(R.id.relative3);
+//        relative4 = findViewById(R.id.relative4);
+//        relative5 = findViewById(R.id.relative5);
+//        relative6 = findViewById(R.id.relative6);
+//        relative7 = findViewById(R.id.relative7);
+//        relative8 = findViewById(R.id.relative8);
+//        relative9 = findViewById(R.id.relative9);
+//        relative10 = findViewById(R.id.relative10);
+//        initclicklistners();
+//        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,filterarray);
+//        listView.setAdapter(arrayAdapter);
 
     }
     private void initclicklistners() {
@@ -274,19 +275,6 @@ public class AfterLauncherActivity extends AppCompatActivity {
 
         searchView.setQueryHint("type here to search");
 
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-//
-            @Override
-            public boolean onQueryTextChange(String s) {
-                arrayAdapter.getFilter().filter(s);
-                return false;
-            }
-        });
 
         scanimage = menu.findItem(R.id.scanimage);
         scanimage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {

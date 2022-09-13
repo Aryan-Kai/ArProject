@@ -60,7 +60,7 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
         ImageView imgmodel;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            modelname = itemView.findViewById(R.id.txtmodelname);
+            modelname = itemView.findViewById(R.id.modelname);
             imgmodel  = itemView.findViewById(R.id.imgmodel);
         }
 
