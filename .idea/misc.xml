@@ -51,6 +51,7 @@
         <entry key="..\:/Users/ABHISHEK/ArApp2/app/src/main/res/layout/fragment_about.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/ABHISHEK/ArApp2/app/src/main/res/layout/item.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/ABHISHEK/ArApp2/app/src/main/res/menu/menu.xml" value="0.2864583333333333" />
+        <entry key="..\:/Users/SATYAM/nsih/ArApp2/app/src/main/res/layout/activity_folder.xml" value="0.2" />
         <entry key="..\:/Users/SATYAM/sih25/ArDevelopment/app/src/main/res/drawable/quiz.xml" value="0.1" />
         <entry key="..\:/Users/SATYAM/sih25/ArDevelopment/app/src/main/res/layout/activity_activity2.xml" value="0.1" />
         <entry key="..\:/Users/SATYAM/sih25/ArDevelopment/app/src/main/res/layout/activity_after_launcher.xml" value="0.10208333333333333" />
@@ -78,7 +79,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
