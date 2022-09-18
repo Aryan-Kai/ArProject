@@ -37,7 +37,11 @@
         android:theme="@style/Theme.ArApplication"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".book_activity"
+=======
+            android:name=".AfterLauncherActivity2"
+>>>>>>> fa881f17b690e0e71e8715a9ea11f7c9d6afb65d
             android:exported="false" />
         <activity
             android:name=".QuizActivity"
@@ -64,6 +68,7 @@
 
         <activity
             android:name=".ScannerActivity"
+<<<<<<< HEAD
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,6 +76,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+=======
+            android:exported="true"></activity>
+>>>>>>> fa881f17b690e0e71e8715a9ea11f7c9d6afb65d
         <activity
             android:name=".ModelActivity"
             android:exported="false" />
@@ -85,7 +93,22 @@
             android:exported="true" />
         <activity
             android:name=".LauncherActivity"
+<<<<<<< HEAD
             android:exported="true"></activity>
+=======
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CaptureCode"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme" />
+>>>>>>> fa881f17b690e0e71e8715a9ea11f7c9d6afb65d
 
         <meta-data
             android:name="com.google.ar.core"

@@ -33,7 +33,7 @@ public class FolderActivity extends AppCompatActivity {
         imghistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FolderActivity.this, AfterLauncherActivity.class);
+                Intent intent = new Intent(FolderActivity.this, AfterLauncherActivity2.class);
                 startActivity(intent);
             }
         });
@@ -47,6 +47,7 @@ public class FolderActivity extends AppCompatActivity {
         imgpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
 ////                Toast.makeText(FolderActivity.this,"Coming Soon!!!",Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent(Intent.ACTION_VIEW);
 ////                startActivity(intent);
@@ -57,6 +58,13 @@ public class FolderActivity extends AppCompatActivity {
 //                intent.addCategory(Intent.CATEGORY_BROWSABLE);
 //                intent.setData(Uri.parse("https://drive.google.com/file/d/1K8C3aPr6FjUsPZP2_8ImEa7_dIKLq4yd/view?usp=sharing"));
 //                startActivity(intent);
+=======
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://drive.google.com/file/d/1K8C3aPr6FjUsPZP2_8ImEa7_dIKLq4yd/view?usp=sharing"));
+                startActivity(intent);
+>>>>>>> fa881f17b690e0e71e8715a9ea11f7c9d6afb65d
             }
         });
     }
