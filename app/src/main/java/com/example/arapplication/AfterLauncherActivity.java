@@ -88,7 +88,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
         modelAdapter = new ModelAdapter(AfterLauncherActivity.this, modelFirebaseClassArrayList, new ModelAdapter.ItemClickListener() {
             @Override
             public void OnItemClick(ModelFirebase model) {
-                Intent intent = new Intent(AfterLauncherActivity.this, ModelActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity.this, MainActivity.class);
                 String name = model.getModel_name().toString();
                 intent.putExtra("model_name",name);
                 startActivity(intent);
