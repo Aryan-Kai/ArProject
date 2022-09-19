@@ -21,8 +21,12 @@
             android:title="@string/About_us"/>
     <item
         android:id="@+id/scanimage"
-        android:icon="@drawable/ic_image_scan"
         android:title="Scan Image"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/scanqr"
+        android:icon="@drawable/ic_image_scan"
+        android:title="Scan QR"
         app:showAsAction="ifRoom"/>
 
 

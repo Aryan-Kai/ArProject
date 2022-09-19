@@ -48,7 +48,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
     SearchView searchView;
     ArrayAdapter<String> adapter;
     ModelAdapter modelAdapter;
-    MenuItem scanimage;
+    MenuItem scanimage,scanqr;
     ProgressDialog progressDialog;
     ArrayList<ModelFirebase> modelFirebaseClassArrayList;
     ArrayAdapter<String> arrayAdapter;
@@ -276,6 +276,15 @@ public class AfterLauncherActivity extends AppCompatActivity {
         searchView.setQueryHint("type here to search");
 
 
+        scanqr = menu.findItem(R.id.scanqr);
+        scanqr.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(AfterLauncherActivity.this,QRActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
         scanimage = menu.findItem(R.id.scanimage);
         scanimage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
