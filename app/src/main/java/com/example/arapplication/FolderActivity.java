@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,9 +47,24 @@ public class FolderActivity extends AppCompatActivity {
         imgpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FolderActivity.this,"Coming Soon!!!",Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(FolderActivity.this,AfterLauncherActivity.class);
+<<<<<<< HEAD
+////                Toast.makeText(FolderActivity.this,"Coming Soon!!!",Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+////                startActivity(intent);
+//                intent.setData(Uri.parse("https://drive.google.com/file/d/1K8C3aPr6FjUsPZP2_8ImEa7_dIKLq4yd/view?usp=sharing"));
 //                startActivity(intent);
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_VIEW);
+//                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+//                intent.setData(Uri.parse("https://drive.google.com/file/d/1K8C3aPr6FjUsPZP2_8ImEa7_dIKLq4yd/view?usp=sharing"));
+//                startActivity(intent);
+=======
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://drive.google.com/file/d/1K8C3aPr6FjUsPZP2_8ImEa7_dIKLq4yd/view?usp=sharing"));
+                startActivity(intent);
+>>>>>>> fa881f17b690e0e71e8715a9ea11f7c9d6afb65d
             }
         });
     }
