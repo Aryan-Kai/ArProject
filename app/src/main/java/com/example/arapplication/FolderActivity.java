@@ -44,7 +44,7 @@ public class FolderActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        imgpdf.setOnClickListener(new View.OnClickListener() {
+        /*imgpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 <<<<<<< HEAD
@@ -66,7 +66,7 @@ public class FolderActivity extends AppCompatActivity {
                 startActivity(intent);
 >>>>>>> fa881f17b690e0e71e8715a9ea11f7c9d6afb65d
             }
-        });
+        });*/
     }
     @Override
     public void onBackPressed() {

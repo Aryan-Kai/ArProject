@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LauncherActivity"
-    android:background="@drawable/launcherimage">
+    android:background="#000000">
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/txt_bottom"
         android:layout_width="190dp"
         android:layout_height="80dp"
@@ -23,23 +23,28 @@
         app:layout_constraintHorizontal_bias="0.868"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167" />
+        app:layout_constraintVertical_bias="0.167" />-->
+
+    <ImageView
+        android:id="@+id/img_open"
+        android:layout_width="492dp"
+        android:layout_height="352dp"
+        android:src="@drawable/new_logo"
+        android:layout_centerInParent="true"/>
 
     <TextView
         android:id="@+id/txt_bo"
-        android:layout_width="201dp"
-        android:layout_height="wrap_content"
+        android:layout_width="439dp"
+        android:layout_height="126dp"
         android:layout_centerHorizontal="true"
-        android:fontFamily="cursive"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="190dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Education for Imagination"
         android:textAlignment="center"
-        android:textColor="#368BC1"
+        android:textColor="#edbf29"
         android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.923"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

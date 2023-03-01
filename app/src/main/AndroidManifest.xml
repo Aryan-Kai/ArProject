@@ -30,9 +30,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/newapplogo"
         android:label="@string/app"
-        android:roundIcon="@drawable/icon"
+        android:roundIcon="@drawable/newapplogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ArApplication"
         tools:targetApi="31">

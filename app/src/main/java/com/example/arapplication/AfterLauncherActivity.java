@@ -63,7 +63,7 @@ public class AfterLauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_launcher);
 
-        listView= findViewById(R.id.listView);
+//        listView= findViewById(R.id.listView);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);

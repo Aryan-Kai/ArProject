@@ -24,6 +24,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentChange;
@@ -61,32 +62,31 @@ public class AfterLauncherActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_launcher2);
 
-        listView= findViewById(R.id.listView);
+//        listView= findViewById(R.id.listView);
 
-        //    progressDialog = new ProgressDialog(this);
-        //  progressDialog.setCancelable(false);
-        // progressDialog.setMessage("Loading List");
-        //progressDialog.show();
+           progressDialog = new ProgressDialog(this);
+         progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading List");
+        progressDialog.show();
         toolbar = findViewById(R.id.toolbar);
 
-        //setSupportActionBar(toolbar);
-
-        // recyclerView= findViewById(R.id.recyclerview);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setHasFixedSize(true);
-        // db = FirebaseFirestore.getInstance();
-        //frameLayout = findViewById(R.id.framelayout);
-        //modelFirebaseClassArrayList = new ArrayList<ModelFirebase>();
+        setSupportActionBar(toolbar);
+         recyclerView= findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+         db = FirebaseFirestore.getInstance();
+        frameLayout = findViewById(R.id.framelayout);
+        modelFirebaseClassArrayList = new ArrayList<ModelFirebase>();
         if(toolbar!=null)
         {
             setSupportActionBar(toolbar);
         }
 
-        /*EventChangeListener();
-        modelAdapter = new ModelAdapter(AfterLauncherActivity.this, modelFirebaseClassArrayList, new ModelAdapter.ItemClickListener() {
+        EventChangeListener();
+        modelAdapter = new ModelAdapter(AfterLauncherActivity2.this, modelFirebaseClassArrayList, new ModelAdapter.ItemClickListener() {
             @Override
             public void OnItemClick(ModelFirebase model) {
-                Intent intent = new Intent(AfterLauncherActivity.this, ModelActivity.class);
+                Intent intent = new Intent(AfterLauncherActivity2.this, ModelActivity.class);
                 String name = model.getModel_name().toString();
                 intent.putExtra("model_name",name);
                 startActivity(intent);
@@ -94,10 +94,10 @@ public class AfterLauncherActivity2 extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(modelAdapter);
-        Filter();
+        /*Filter();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,filterList);
         listView.setAdapter(adapter);*/
-        relative1 = findViewById(R.id.relative1);
+        /*relative1 = findViewById(R.id.relative1);
         relative2 = findViewById(R.id.relative2);
         relative3 = findViewById(R.id.relative3);
         relative4 = findViewById(R.id.relative4);
@@ -109,7 +109,7 @@ public class AfterLauncherActivity2 extends AppCompatActivity {
         relative10 = findViewById(R.id.relative10);
         initclicklistners();
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,filterarray);
-        listView.setAdapter(arrayAdapter);
+        listView.setAdapter(arrayAdapter);*/
 
     }
     private void initclicklistners() {

@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.2.2'
     implementation 'org.pytorch:pytorch_android_lite:1.12.1'
     implementation 'org.pytorch:pytorch_android_torchvision_lite:1.12.1'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.2'
     implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

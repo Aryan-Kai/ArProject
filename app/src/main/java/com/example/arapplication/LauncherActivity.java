@@ -20,6 +20,7 @@ public class LauncherActivity extends AppCompatActivity {
     TextView txt_bottom , txt_bo;
     Animation top_anim;
     Animation bottom_anim;
+    Animation slide;
     Timer timer;
 
     @Override
@@ -27,17 +28,18 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        //img_open = findViewById(R.id.img_open);
-        txt_bottom = findViewById(R.id.txt_bottom);
+        img_open = findViewById(R.id.img_open);
+        //txt_bottom = findViewById(R.id.txt_bottom);
         txt_bo = findViewById(R.id.txt_bo);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
        // getSupportActionBar().hide();
         top_anim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottom_anim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
         //img_open.startAnimation(top_anim);
+        slide = AnimationUtils.loadAnimation(this,R.anim.slide);
         timer = new Timer();
-        txt_bottom.startAnimation(bottom_anim);
-        txt_bo.startAnimation(bottom_anim);
+        img_open.startAnimation(slide);
+        txt_bo.startAnimation(slide);
         Intent intent = new Intent(LauncherActivity.this,FolderActivity.class);
         timer.schedule(new TimerTask() {
             @Override

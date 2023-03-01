@@ -1,17 +1,18 @@
 package com.example.arapplication;
 
 
-import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -19,163 +20,168 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.journeyapps.barcodescanner.ScanContract;
-import com.journeyapps.barcodescanner.ScanOptions;
+import com.example.arapplication.ml.MobilenetV110224Quant;
 
 import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import java.io.InputStreamReader;
 
 
 public class ScannerActivity extends AppCompatActivity {
 
-    TextView result, confidence;
+    Button selectBtn, predictBtn, captureBtn;
+    TextView result;
     ImageView imageView;
-    Button picture;
-    String contents;
-    int imageSize = 224;
+    Bitmap bitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
 
-      /*  result = findViewById(R.id.result);
-        confidence = findViewById(R.id.confidence);
-        imageView = findViewById(R.id.imageView);
-        picture = findViewById(R.id.button);
+        getPermission();
 
-        picture.setOnClickListener(new View.OnClickListener() {
+        String[] labels = new String[1001];
+        int cnt = 0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open("labels.txt")));
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                labels[cnt] = line;
+                cnt++;
+                line = bufferedReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        selectBtn = findViewById(R.id.selectBtn);
+
+        predictBtn = findViewById(R.id.predictBtn);
+
+        captureBtn = findViewById(R.id.captureBtn);
+
+        result = findViewById(R.id.result);
+
+        imageView = findViewById(R.id.imageView);
+
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View view) {
+
+                Intent intent = new Intent();
+
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                intent.setType("image/*");
+                startActivityForResult(intent, 10);
+            }
+
+        });
+
+        captureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Launch camera if we have permission
-                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, 1);
-                } else {
-                    //Request camera permission if we don't have it.
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 12);
+            }
+        });
+
+        predictBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                try {
+
+                    MobilenetV110224Quant model = MobilenetV110224Quant.newInstance(ScannerActivity.this);
+
+// Croton inputs for reference.
+                    TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.UINT8);
+
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, true);
+
+                    inputFeature0.loadBuffer(TensorImage.fromBitmap(bitmap).getBuffer());
+
+                    MobilenetV110224Quant.Outputs outputs = model.process(inputFeature0);
+                    TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+                    result.setText(labels[getMax(outputFeature0.getFloatArray())] + " ");
+
+                    model.close();
+                } catch (IOException e) {
+                    //TODD Mandte the exception
                 }
             }
-        });*/
+        });
 
-        scanqrcode();
     }
 
-    private void scanqrcode() {
-        ScanOptions scanOptions = new ScanOptions();
-        scanOptions.setPrompt("Volume up to Flash On");
-        scanOptions.setBeepEnabled(true);
-        scanOptions.setCaptureActivity(CaptureCode.class);
-        barcodelauncher.launch(scanOptions);
+    int getMax(float[] arr) {
+        int max = 0;
 
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > arr[max]) max = i;
+
+        }
+
+        return max;
     }
-    ActivityResultLauncher<ScanOptions> barcodelauncher = registerForActivityResult(new ScanContract(), result -> {
-        if(result.getContents()!=null)
-        {
-            contents = result.getContents();
-            AlertDialog.Builder builder = new AlertDialog.Builder(ScannerActivity.this);
-            builder.setTitle("Information Obtained");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("Load Model", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent  = new Intent(ScannerActivity.this,ModelActivity.class);
-                    intent.putExtra("model_name",contents);
-                    startActivity(intent);
-                    dialog.dismiss();
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.show();
+
+
+    private void getPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{Manifest.permission.CAMERA}, 11);
+            }
         }
-        else
-        {
-            System.out.println("No contents");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 11) {
+            if (grantResults.length > 0) {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    this.getPermission();
+                }
+            }
         }
-    });
 
-    /*public void classifyImage(Bitmap image){
-        try {
-            com.example.arapplication.ml.Model model = com.example.arapplication.ml.Model.newInstance(this);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
-            // Creates inputs for reference.
-            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3);
-            if(byteBuffer.hasArray())
-            {
-                Buffer buffer = new Buffer()
-            }
-            byteBuffer.order(ByteOrder.nativeOrder());
 
-            // get 1D array of 224 * 224 pixels in image
-            int [] intValues = new int[imageSize * imageSize];
-            image.getPixels(intValues, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight());
+    @Override
 
-            // iterate over pixels and extract R, G, and B values. Add to bytebuffer.
-            int pixel = 0;
-            for(int i = 0; i < imageSize; i++){
-                for(int j = 0; j < imageSize; j++){
-                    int val = intValues[pixel++]; // RGB
-                    byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
-                    byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
-                    byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == 10) {
+            if (data != null) {
+
+
+                Uri uri = data.getData();
+
+                try {
+
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
+                    imageView.setImageBitmap(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-
-            inputFeature0.loadBuffer(byteBuffer);
-
-            // Runs model inference and gets result.
-            com.example.arapplication.ml.Model.Outputs outputs = model.process(inputFeature0);
-            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
-
-            float[] confidences = outputFeature0.getFloatArray();
-            // find the index of the class with the biggest confidence.
-            int maxPos = 0;
-            float maxConfidence = 0;
-            for(int i = 0; i < confidences.length; i++){
-                if(confidences[i] > maxConfidence){
-                    maxConfidence = confidences[i];
-                    maxPos = i;
-                }
-            }
-            String[] classes = {"Akbar Sikandra", "Orange", "Pen", "Sticky Notes","Victoria Memorial"};
-            result.setText(classes[maxPos]);
-
-            String s = "";
-            for(int i = 0; i < classes.length; i++){
-                s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100);
-            }
-            confidence.setText(s);
-
-
-            // Releases model resources if no longer used.
-            model.close();
-        } catch (IOException e) {
-            // TODO Handle the exception
-        }*/
-
-
-/*    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Bitmap image = (Bitmap) data.getExtras().get("data");
-            int dimension = Math.min(image.getWidth(), image.getHeight());
-            image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
-            imageView.setImageBitmap(image);
-
-            image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
-            classifyImage(image);
+        } else if (requestCode == 12) {
+            bitmap = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(bitmap);
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }*/
+
+
+    }
 }
